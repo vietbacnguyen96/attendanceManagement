@@ -15,6 +15,9 @@ import numpy as np
 
 from caffe.ultra_face_opencvdnn_inference import inference, net as net_dnn
 
+
+
+
 parser = argparse.ArgumentParser(description='Face Recognition')
 parser.add_argument('-db', '--debug', default='False',
         type=str, metavar='N', help='Turn on debug mode')
@@ -33,9 +36,17 @@ if args.record == 'True':
 	record = True
 
 api = 'http://123.16.55.212:85/facerec'
-path = "H:/face_recognition/attendanceManagement/final_project/"
+# path = "H:/face_recognition/attendanceManagement/final_project/"
 # path = "/home/vkist/attendanceManagement/"
+path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
 window_name = 'Phần Mềm Điểm Danh - VKIST 2022'
+
+sound_dst_dir = path + 'sounds/'
+if not os.path.exists(sound_dst_dir):
+    os.makedirs(sound_dst_dir)
+video_dst_dir = path + 'videos/'
+if not os.path.exists(video_dst_dir):
+    os.makedirs(video_dst_dir)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -45,6 +56,8 @@ print('*************************************************************************
 print('Debug: ' + str(debug))
 print('Record: ' + str(record))
 print('Frequency: ' + str(frequency))
+print('Record sound folder: ' + str(sound_dst_dir))
+print('Record video folder: ' + str(video_dst_dir))
 print('**************************************************************************\n')
 
 window_size = [1000, 730]
@@ -113,12 +126,7 @@ new_frame_time = 0
 cur_time = 0
 max_times = 5
 
-sound_dst_dir = path + 'sounds/'
-if not os.path.exists(sound_dst_dir):
-    os.makedirs(sound_dst_dir)
-video_dst_dir = path + 'videos/'
-if not os.path.exists(video_dst_dir):
-    os.makedirs(video_dst_dir)
+
 
 def remove_accent(text):
     return unidecode.unidecode(text)
@@ -210,10 +218,12 @@ def face_recognize(frame):
     return
 
 size = (window_size[0], window_size[1])
-if record:
-    record_screen = cv2.VideoWriter(video_dst_dir + 'record_' + str(time.time())+ '.avi', 
-                    cv2.VideoWriter_fourcc(*'MJPG'),
-                    10, size)
+# if record:
+record_time = datetime.fromtimestamp(time.time())
+record_time = str(record_time).replace(' ', '_').replace(':', '_')
+record_screen = cv2.VideoWriter(video_dst_dir + 'record_' + record_time + '.avi', 
+                cv2.VideoWriter_fourcc(*'MJPG'),
+                10, size)
 
 count = 0
 tm = cv2.TickMeter()
@@ -265,8 +275,10 @@ while True:
 
     cv2.putText(frame_show, '{0} fps'.format(fps), (20, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 255, 0), 1, cv2.LINE_AA)
     cv2.imshow(window_name, frame_show)
-    if record:
+    # if record and len(temp_boxes) > 0:
+    if len(temp_boxes) > 0:
         record_screen.write(frame_show)
+
     if len(predict_labels) > 3:
         predict_labels = []
         temp_faces = []
