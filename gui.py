@@ -12,11 +12,7 @@ from gtts import gTTS
 import playsound
 from datetime import datetime
 import numpy as np
-
 from caffe.ultra_face_opencvdnn_inference import inference, net as net_dnn
-
-
-
 
 parser = argparse.ArgumentParser(description='Face Recognition')
 parser.add_argument('-db', '--debug', default='False',
@@ -36,8 +32,6 @@ if args.record == 'True':
 	record = True
 
 api = 'http://123.16.55.212:85/facerec'
-# path = "H:/face_recognition/attendanceManagement/final_project/"
-# path = "/home/vkist/attendanceManagement/"
 path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
 window_name = 'Phần Mềm Điểm Danh - VKIST 2022'
 
@@ -125,8 +119,6 @@ new_frame_time = 0
 
 cur_time = 0
 max_times = 5
-
-
 
 def remove_accent(text):
     return unidecode.unidecode(text)
@@ -290,5 +282,3 @@ while True:
 
 webcam.release()
 cv2.destroyAllWindows()
-
-
