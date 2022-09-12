@@ -212,8 +212,8 @@ def face_recognize(frame):
 
 size = (window_size[0], window_size[1])
 # if record:
-record_time = datetime.fromtimestamp(time.time())
-record_time = str(record_time).replace(' ', '_').replace(':', '_')
+record_time = str(datetime.fromtimestamp(time.time()))
+record_time = record_time.replace(' ', '_').replace(':', '_')
 record_screen = cv2.VideoWriter(video_dst_dir + 'record_' + record_time + '.avi', 
                 cv2.VideoWriter_fourcc(*'MJPG'),
                 10, size)
@@ -267,6 +267,7 @@ while True:
     fps = str(int(fps))
 
     cv2.putText(frame_show, '{0} fps'.format(fps), (20, 50), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 255, 0), 1, cv2.LINE_AA)
+    cv2.putText(frame_show, str(datetime.fromtimestamp(time.time())).split('.')[0], (20, frame_height - 50), cv2.FONT_HERSHEY_DUPLEX, 1, (100, 255, 0), 1, cv2.LINE_AA)
     cv2.imshow(window_name, frame_show)
     # if record and len(temp_boxes) > 0:
     if len(temp_boxes) > 0:
