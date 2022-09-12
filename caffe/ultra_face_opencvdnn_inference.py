@@ -1,6 +1,6 @@
 # coding=utf-8
 # import argparse
-# import os
+import os
 import time
 from math import ceil
 
@@ -16,8 +16,7 @@ size_variance = 0.2
 min_boxes = [[10.0, 16.0, 24.0], [32.0, 48.0], [64.0, 96.0], [128.0, 192.0, 256.0]]
 strides = [8.0, 16.0, 32.0, 64.0]
 
-# path = "H:/face_recognition/AI_Awards_2022/"
-path = "./"
+path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
 
 def define_img_size(image_size):
     shrinkage_list = []
