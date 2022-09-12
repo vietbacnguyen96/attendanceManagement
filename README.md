@@ -7,20 +7,6 @@ $ # Get the code
 $ git clone https://github.com/vietbacnguyen96/attendanceManagement.git
 $ cd attendanceManagement
 $
-$ # Install python 3.6.2
-$ https://www.python.org/downloads/release/python-362/
-$
-$ # Install virtualenv 
-$ pip install virtualenv
-$
-$ # Virtualenv modules installation (Unix based systems)
-$ virtualenv env -p python3.6.2
-$ source env/bin/activate
-$
-$ # Virtualenv modules installation (Windows based systems)
-$ virtualenv env -p python3.6.2
-$ .\env\Scripts\activate
-$
 $ # Install modules
 $ pip3 install -r requirements.txt
 $
