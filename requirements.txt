@@ -1,0 +1,8 @@
+torchvision
+opencv-python
+pillow
+matplotlib
+requests
+unidecode
+gtts
+playsound
