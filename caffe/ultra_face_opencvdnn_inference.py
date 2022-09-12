@@ -135,7 +135,6 @@ def center_form_to_corner_form(locations):
                            locations[..., :2] + locations[..., 2:] / 2], len(locations.shape) - 1)
 
 net = dnn.readNetFromONNX( path + 'models/onnx/version-RFB-320_simplified.onnx')  # onnx version
-# net = dnn.readNetFromONNX('models/onnx/version-RFB-320_simplified.onnx')  # onnx version
 input_size = [320, 240]
 witdh = input_size[0]
 height = input_size[1]
