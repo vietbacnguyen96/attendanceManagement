@@ -36,10 +36,26 @@ api = 'http://123.16.55.212:85/facerec'
 path = '/home/vkist/attendanceManagement/'
 window_name = 'Phần Mềm Điểm Danh - VKIST 2022'
 
+record_time = datetime.fromtimestamp(time.time())
+year = '20' + record_time.strftime('%y')
+month = record_time.strftime('%m')
+date = record_time.strftime('%d')
+record_time = str(record_time).replace(' ', '_').replace(':', '_')
+
+
 sound_dst_dir = path + 'sounds/'
 if not os.path.exists(sound_dst_dir):
     os.makedirs(sound_dst_dir)
 video_dst_dir = path + 'videos/'
+if not os.path.exists(video_dst_dir):
+    os.makedirs(video_dst_dir)
+video_dst_dir += year + '/'
+if not os.path.exists(video_dst_dir):
+    os.makedirs(video_dst_dir)
+video_dst_dir += month + '/'
+if not os.path.exists(video_dst_dir):
+    os.makedirs(video_dst_dir)
+video_dst_dir += date + '/'
 if not os.path.exists(video_dst_dir):
     os.makedirs(video_dst_dir)
 
@@ -212,8 +228,7 @@ def face_recognize(frame):
 
 size = (window_size[0], window_size[1])
 # if record:
-record_time = str(datetime.fromtimestamp(time.time()))
-record_time = record_time.replace(' ', '_').replace(':', '_')
+
 record_screen = cv2.VideoWriter(video_dst_dir + 'record_' + record_time + '.avi', 
                 cv2.VideoWriter_fourcc(*'MJPG'),
                 10, size)
