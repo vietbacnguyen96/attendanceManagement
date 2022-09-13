@@ -228,7 +228,6 @@ def face_recognize(frame):
 
 size = (window_size[0], window_size[1])
 # if record:
-
 record_screen = cv2.VideoWriter(video_dst_dir + 'record_' + record_time + '.avi', 
                 cv2.VideoWriter_fourcc(*'MJPG'),
                 10, size)
