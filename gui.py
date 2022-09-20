@@ -14,6 +14,8 @@ from datetime import datetime
 import numpy as np
 from caffe.ultra_face_opencvdnn_inference import inference, net as net_dnn, path
 
+time.sleep(10)
+
 parser = argparse.ArgumentParser(description='Face Recognition')
 parser.add_argument('-db', '--debug', default='False',
         type=str, metavar='N', help='Turn on debug mode')
