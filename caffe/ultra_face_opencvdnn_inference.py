@@ -17,6 +17,8 @@ min_boxes = [[10.0, 16.0, 24.0], [32.0, 48.0], [64.0, 96.0], [128.0, 192.0, 256.
 strides = [8.0, 16.0, 32.0, 64.0]
 
 # path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
+
+# path = './'
 path = '/home/vkist/attendanceManagement/'
 
 def define_img_size(image_size):

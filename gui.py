@@ -32,8 +32,6 @@ if args.record == 'True':
 	record = True
 
 api = 'http://123.16.55.212:85/facerec'
-# path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
-# path = '/home/vkist/attendanceManagement/'
 window_name = 'Phần Mềm Điểm Danh - VKIST 2022'
 
 record_time = datetime.fromtimestamp(time.time())
