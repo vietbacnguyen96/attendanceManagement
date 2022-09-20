@@ -12,7 +12,7 @@ from gtts import gTTS
 import playsound
 from datetime import datetime
 import numpy as np
-from caffe.ultra_face_opencvdnn_inference import inference, net as net_dnn
+from caffe.ultra_face_opencvdnn_inference import inference, net as net_dnn, path
 
 parser = argparse.ArgumentParser(description='Face Recognition')
 parser.add_argument('-db', '--debug', default='False',
@@ -33,7 +33,7 @@ if args.record == 'True':
 
 api = 'http://123.16.55.212:85/facerec'
 # path = os.path.abspath(os.getcwd()).replace('\\', '/') + '/'
-path = '/home/vkist/attendanceManagement/'
+# path = '/home/vkist/attendanceManagement/'
 window_name = 'Phần Mềm Điểm Danh - VKIST 2022'
 
 record_time = datetime.fromtimestamp(time.time())
@@ -73,10 +73,8 @@ print('*************************************************************************
 
 window_size = [1000, 730]
 
-temp_faces = []
 temp_boxes = []
 predict_labels = []
-face_index = []
 queue = []
 has_face = False
 
@@ -177,7 +175,7 @@ def say_hello(content):
 def face_recognize(frame):
     cur_hour = str(datetime.now()).split(" ")[1].split(":")[0]
 
-    global temp_faces, temp_boxes, predict_labels, time_appear, max_time_appear, has_face, face_index, temp_id, temp_name, cur_time
+    global temp_boxes, predict_labels, time_appear, max_time_appear, has_face, temp_id, temp_name, cur_time
     _, encimg = cv2.imencode(".jpg", frame)
     img_byte = encimg.tobytes()
     img_str = base64.b64encode(img_byte).decode('utf-8')
@@ -270,7 +268,8 @@ while True:
 
     frame_show[1:frame_height + 1, 1 :frame_width + 1,:] = final_frame
 
-    for i, labelI in enumerate(predict_labels):
+    temp_labels = list(reversed(predict_labels))
+    for i, labelI in enumerate(temp_labels):
         cv2.putText(frame_show, '{0}'.format(labelI[0]), (frame_width + distance_x, int((crop_image_size + distance_y) * i) + int(distance_y/1.5) ), fontface, fontscale, (100, 255, 0))
         if frame_width + distance_x + crop_image_size < window_size[0] and int((crop_image_size + distance_y) * i) + distance_y + crop_image_size < window_size[1]:
             frame_show[int((crop_image_size + distance_y) * i) + distance_y: int((crop_image_size + distance_y) * i) + distance_y + crop_image_size, frame_width + distance_x: frame_width + distance_x + crop_image_size, :] = labelI[1]
@@ -288,10 +287,7 @@ while True:
         record_screen.write(frame_show)
 
     if len(predict_labels) > 3:
-        predict_labels = []
-        temp_faces = []
-        temp_boxes = []
-        face_index = []
+        predict_labels = predict_labels[1:]
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
