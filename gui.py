@@ -212,8 +212,12 @@ def face_recognize(frame):
                     print(front_string + name_parts[-1] + ' ' + name_parts[0] + '\n')  
                     say_hello(front_string + name_parts[-1] + ' ' + name_parts[0])
                 else:
-                    print(front_string + name_parts[-2] + ' ' + name_parts[-1] + '\n')  
-                    say_hello(front_string + name_parts[-2] + ' ' + name_parts[-1])
+                    if len(name_parts) > 1:
+                        print(front_string + name_parts[-2] + ' ' + name_parts[-1] + '\n')  
+                        say_hello(front_string + name_parts[-2] + ' ' + name_parts[-1])
+                    else:
+                        print(front_string + name_parts[0]+ '\n')  
+                        say_hello(front_string + name_parts[0])
             else:
                 cur_time += 1
                 if cur_time >= max_times:
