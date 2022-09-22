@@ -182,7 +182,10 @@ def face_recognize(frame):
     new_img_str = "data:image/jpeg;base64," + img_str
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain', 'charset': 'utf-8'}
 
+    # VKIST database
     payload = json.dumps({"secret_key": "18e6e136-f722-4bbd-b39e-5975263035b7", "img": new_img_str})
+    # Test database
+    payload = json.dumps({"secret_key": "d88fcc0e-228c-4026-85a7-5da7f4e8ba2c", "img": new_img_str})
 
     seconds = time.time()
     requests.post(api, data=payload, headers=headers, timeout=100)
@@ -212,11 +215,14 @@ def face_recognize(frame):
                     print(front_string + name_parts[-1] + ' ' + name_parts[0] + '\n')  
                     say_hello(front_string + name_parts[-1] + ' ' + name_parts[0])
                 else:
-                    if len(name_parts) > 1:
+                    if len(name_parts) > 2:
                         print(front_string + name_parts[-2] + ' ' + name_parts[-1] + '\n')  
                         say_hello(front_string + name_parts[-2] + ' ' + name_parts[-1])
                     else:
-                        print(front_string + name_parts[0]+ '\n')  
+                        temp_names = ''
+                        for name_part_I in name_parts:
+                            temp_name += name_part_I + ' '
+                        print(front_string + temp_names+ '\n')  
                         say_hello(front_string + name_parts[0])
             else:
                 cur_time += 1
