@@ -183,7 +183,7 @@ def face_recognize(frame):
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain', 'charset': 'utf-8'}
 
     # VKIST database
-    payload = json.dumps({"secret_key": "18e6e136-f722-4bbd-b39e-5975263035b7", "img": new_img_str})
+    # payload = json.dumps({"secret_key": "18e6e136-f722-4bbd-b39e-5975263035b7", "img": new_img_str})
     # Test database
     payload = json.dumps({"secret_key": "d88fcc0e-228c-4026-85a7-5da7f4e8ba2c", "img": new_img_str})
 
