@@ -223,7 +223,7 @@ def face_recognize(frame):
                         for name_part_I in name_parts:
                             temp_names += name_part_I + ' '
                         print(front_string + temp_names+ '\n')  
-                        say_hello(front_string + name_parts[0])
+                        say_hello(front_string + temp_names)
             else:
                 cur_time += 1
                 if cur_time >= max_times:
