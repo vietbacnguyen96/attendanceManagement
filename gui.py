@@ -221,7 +221,7 @@ def face_recognize(frame):
                     else:
                         temp_names = ''
                         for name_part_I in name_parts:
-                            temp_name += name_part_I + ' '
+                            temp_names += name_part_I + ' '
                         print(front_string + temp_names+ '\n')  
                         say_hello(front_string + name_parts[0])
             else:
